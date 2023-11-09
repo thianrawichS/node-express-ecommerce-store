@@ -15,7 +15,7 @@
    cd <your-project-folder>
 
 2. **Environment Variables:**
-   - Create a `.env` file in the project directory with the following content:
+   - Create a `.env` file in the project directory with the following content: <br>
    <i>(change USER, PASSWORD, and ROOT_PASSWORD values)</i>
    ```env
    # DB_INFO
@@ -34,3 +34,6 @@
 3. **Run the App:**
    ```bash
    docker-compose up
+
+4. **Access the App:**
+   Open your web browser and navigate to http://localhost:3000
