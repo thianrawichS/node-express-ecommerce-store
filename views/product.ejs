@@ -1,0 +1,95 @@
+<%-include('header') %>
+
+<div class="container-lg">
+    <!-- Add Product trigger modal -->
+    <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#addProductModal">
+        Add Product
+    </button>
+    
+    <!-- Add Product modal -->
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addProductModalLabel">Add Product</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form action="/product/add" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <input type="text" name="product_name" placeholder="Product Name" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <select name="product_group_id" id="product_group_id" class="form-select" required>
+                                <option value="" disabled selected> Select Product Type </option>
+                                <% productGroup[0].forEach((productGroups) => { %>
+                                <option value="<%= productGroups.product_group_id %>"><%= productGroups.product_group_name %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <input type="number" class="form-control" name="cost_price" placeholder="Cost Price">
+                        </div>
+                        <div class="mb-3">
+                            <input type="number" class="form-control" name="selling_price" placeholder="Selling Price">
+                        </div>
+                        <div>
+                            <input type="text" placeholder="Barcode" name="barcode" class="form-control">
+                        </div>
+                        <hr>
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">Picture</label>
+                            <input class="form-control" type="file" id="formFile" name="img">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
+
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th> </th>
+                    <th> Stock </th>
+                    <th> Product </th>
+                    <th> Type </th>
+                    <th> Cost Price </th>
+                    <th> Selling Price </th>
+                    <th> Barcode </th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% product[0].forEach ( (products) => { %>
+                <tr class="align-middle">
+                    <td> <img src="/images/<%= products.img %>" style="width: 200px; height: 100px;"> </td>
+                    <td> <%= products.product_stock %> </td>
+                    <td> <%= products.product_name %> </td>
+                    <td> <%= products.product_group_name %> </td>
+                    <td> <%= products.cost_price %> </td>
+                    <td> <%= products.selling_price %> </td>
+                    <td> <%= products.barcode %> </td>
+                    <td>
+                        <a href="/product/edit/<%=products.product_id %>">Edit</a>
+                        <a href="/product/delete/<%=products.product_id %>">Delete</a>
+                    </td>
+                </tr>
+                <% }) %>
+            </tbody>
+
+        </table>
+        
+    </div>
+</div>
+
+
+<%-include('footer') %>

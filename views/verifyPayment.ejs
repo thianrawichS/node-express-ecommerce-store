@@ -1,0 +1,25 @@
+<%-include('header') %>
+
+<div class="container-lg">
+    <div class="border rounded mt-3">
+        <img src="/images/paymentImg/<%= paymentData[0].transfer_receipt_img %>" class="img-fluid">
+    </div>
+    <div class="mt-3">
+        <table class="table">
+            <tr>
+                <td>Date/time</td>
+                <td><%= dayjs(paymentData[0].pay_date).format('YYYY-MM-DD HH:mm:ss') %></td>
+            </tr>
+            <tr>
+                <td>Remark</td>
+                <td><%= paymentData[0].pay_remark %></td>
+            </tr>
+        </table>
+    </div>
+    <div class="mt-3 text-center">
+        <button type="button" class="btn btn-success btn-lg"><a href="/order/verify-payment/accept/<%= orderId %>" style="color: white;"> Accept </a></button>
+        <button type="button" class="btn btn-danger btn-lg"><a href="/order/verify-payment/reject/<%= orderId %>/<%= paymentData[0].payment_id %>" style="color: white;"> Reject </a></button>
+    </div>
+</div>
+
+<%-include('footer') %>

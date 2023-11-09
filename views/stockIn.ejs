@@ -1,0 +1,72 @@
+<%-include('header') %>
+
+<div class="container-lg">
+    <div class="mt-3">
+        <div class="display-5">
+            Stock-In
+        </div>
+        <div class="border rounded p-3 mt-3">
+            <form action="/stock-in" method="post">
+                <div class="mb-3">
+                    <label class="form-label"> Barcode </label>
+                    <input type="text" name="barcode" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label"> Quantity </label>
+                    <input type="number" min="1" value="1" name="qty" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label"> Remark </label>
+                    <input type="text" name="remark" class="form-control">
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary"> Add Stock </button>
+                </div>
+            </form>
+            
+            <% if (updateStatus == 'success') { %>
+            <div class="mt-2 p-2 border rounded bg-success bg-opacity-75 text-white">
+                Stock added successfully
+            </div>
+            <% } else if (updateStatus == 'failed') { %>
+            <div class="mt-2 p-2 border rounded bg-danger bg-opacity-75 text-white">
+                Barcode does not existed
+            </div>
+            <% } %>
+        </div>
+    </div>
+    
+    <div class="mt-3">
+        <div class="h5">
+            History
+        </div>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th> Barcode </th>
+                        <th> Product </th>
+                        <th> Quantity </th>
+                        <th> Date </th>
+                        <th> Remark </th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% stockIn.forEach( s => { %>
+                    <tr>
+                        <td> <%= s.barcode %> </td>
+                        <td> <%= s.product_name %> </td>
+                        <td> <%= s.qty %> </td>
+                        <td> <%= dayjs(s.created_date).format('YYYY-MM-DD HH:mm:ss') %> </td>
+                        <td> <%= s.remark %> </td>
+                        <td> <a href="/stock-in/delete/<%= s.stock_in_id %>/<%= s.product_id %>/<%= s.qty %>">delete</a> </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<%-include('footer') %>

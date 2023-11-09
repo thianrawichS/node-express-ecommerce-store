@@ -1,0 +1,26 @@
+<%-include('header') %>
+
+<div class="container-lg">
+    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div>
+            <h1 class="text-center">Thank you for purchasing our products</h1>
+            <p class="text-center">
+                Your Order Status : <strong class="text-warning"><%= status[0].status %></strong>
+            </p>
+            <% if (status[0].status == "Awaiting Payment"){ %>
+                <div class="text-center">
+                    <button type="button" class="btn btn-primary"> 
+                        <a href="/your-order/payment-confirm/<%= orderId %>" style="color: white;"> Proceed to payment </a>
+                    </button>
+                    <hr>
+                    <button type="button" class="btn btn-secondary">
+                        <a href="/home" style="color: white;"> Back to home </a>
+                    </button>
+                </div>
+            <% } %>
+        </div>
+      </div>
+</div>
+
+
+<%-include('footer') %>

@@ -1,0 +1,93 @@
+<%-include('header') %>
+
+<div class="container-lg">
+    <div class="display-6 mt-3">
+        User Management
+    </div>
+    
+    <!-- add user trigger modal -->
+    <div>
+        <button type="button" class="mt-3 btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUser">
+            Add User
+        </button>
+        <div class="text-danger">
+        <% if (registerStatus.length !== 0) { %>
+            ***<%= registerStatus %>
+        <% } %>
+        </div>
+    </div>
+    <!-- add user modal -->
+    <div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="addUserModalLabel">Add User</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/createuser" method="post">
+                <div class="modal-body">
+                    <div>
+                        <label for="name" class="form-label"> Name </label>
+                        <input name="name" type="text" class="form-control" required>
+                    </div>
+                    <div>
+                        <label for="username" class="form-label"> Username </label>
+                        <input name="username" type="text" class="form-control" required>
+                    </div>
+                    <div>
+                        <label for="password" class="form-label"> Password </label>
+                        <input name="password" type="password" class="form-control" required>
+                    </div>
+                    <div>
+                        <label for="cfmpassword" class="form-label">Confirm Password</label>
+                        <input name="cfmpassword" type="password" class="form-control" required>
+                    </div>
+                    <div class="mt-3">
+                        <div class="form-check">
+                            <input type="radio" id="admin" name="level" value="Admin" class="form-check-input" required>
+                            <label for="admin" class="form-check-label">Admin</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" id="user" name="level" value="User" class="form-check-input" checked>
+                            <label for="user" class="form-check-label">User</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    
+    
+    <table class="table table-hover mt-3">
+        <thead>
+            <tr>
+                <th scope="col"> Name </th>
+                <th scope="col"> Username </th>
+                <th scope="col"> Level </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% userData.forEach((item) => { %>
+            <tr>
+                <td> <%= item.name %> </td>
+                <td> <%= item.username %> </td>
+                <td> <%= item.level %> </td>
+                <td>
+                    <a href="/deleteuser/<%= item.id %>">delete</a>
+                    <a href="/edituser/<%= item.id %>">edit</a>
+                </td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+        
+
+<%-include('footer') %>

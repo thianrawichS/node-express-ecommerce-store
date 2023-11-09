@@ -1,0 +1,44 @@
+<%-include('header') %>
+<div class="container-lg">
+  <div class="card mt-3 mb-3" style="max-width: 100%;">
+    <div class="row g-0">
+
+      <div class="col-md-4">
+        <img src="/images/<%= product[0].img %>" class="img-fluid rounded-start" alt="...">
+      </div>
+
+      <div class="col-md-8 d-flex flex-column pb-2 ps-4">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title"><%= product[0].product_name %></h5>
+          <p class="card-text">...</p>
+          <h5 class="card-text text-body-secondary">฿ <%= numeral(product[0].selling_price).format(0,0) %></h5>
+        </div>
+
+        <div class="flex-grow-1"></div>
+
+        <div>
+            <button class="btn btn-primary" <%= product[0].product_status %>> <a href="/cart/add/<%= product[0].product_id %>" class="text-white"> 
+                <i class="fa-solid fa-cart-plus"></i> Add to cart </a> 
+            </button>
+        </div>
+        <% if (addProductStatus.length != 0) { %>
+        <div class=" mt-2 p-2 border rounded">
+          <%= addProductStatus %>
+        </div>
+        <% } %>
+      </div>
+
+    </div>
+  </div>
+  <div>
+    <h5> Product Specification </h5>
+    <table class="table">
+      <tr>
+        <th style="width: 30%;"> Stock </t>
+        <td> <%= product[0].product_stock %> </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<%-include('footer') %>

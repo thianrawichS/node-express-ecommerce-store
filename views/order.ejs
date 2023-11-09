@@ -1,0 +1,52 @@
+<%-include('header') %>
+
+<div class="container-lg">
+    <div class="h2 mt-4">
+        Orders from Customers
+    </div>
+    
+    <div class="mt-4">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="align-middle">
+                    <th style="width: 300px;"></th>
+                    <th>Status</th>
+                    <th>Order ID</th>
+                    <th>Customers Name</th>
+                    <th>Tel</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+               
+            <tbody>
+            <% order.forEach((orders) => { %>
+                <tr class="align-middle">
+                    <td class="text-center">
+                        <% if (orders.status == 'Payment Verification'){ %>
+                        <button class="btn btn-info"><a href="/order/verify-payment/<%= orders.order_id %>" style="color:white;">Verify Payment</a></button>
+                        <% } else if (orders.status == 'Preparing order for shipping'){ %>
+                        <button class="btn btn-success"><a href="/order/ship-order/<%= orders.order_id %>" style="color: white;">Shipping</a></button>
+                        <% } else if (orders.status == 'Shipped') { %>
+                        <p class="text-success"> ORDER SHIPPED</p>
+                        <button class="btn btn-secondary btn-sm"> 
+                            <a href="/order/remove-record/<%= orders.order_id %>" class="text-light"> remove record </a>
+                        </button>
+                        <% } else { %>
+                        <button class="btn btn-danger"><a href="/order/cancel/<%= orders.order_id %>" style="color: white;">Cancel</a></button>
+                        <% } %>
+                    </td>
+                    <td><%= orders.status %></td>
+                    <td><a href="/order/detail/<%= orders.order_id %>"><%= orders.order_id %></a></td>
+                    <td><%= orders.name %></td>
+                    <td><%= orders.tel %></td>
+                    <td><%= orders.address %></td>
+                </tr>
+            <% }) %>
+            </tbody>
+            
+        </table>
+    </div>
+</div>
+
+
+<%-include('footer') %>

@@ -1,0 +1,35 @@
+<%- include('header') %>
+
+<div class="container-lg">
+    <div class="display-5 mt-3">
+        Stock Report
+    </div>
+    <div class="mt-3">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 200px;"> Barcode </th>
+                    <th scope="col" style="width: 450px"> Product </th>
+                    <th scope="col"> Stock-In </th>
+                    <th scope="col"> Stock-Out </th>
+                    <th scope="col"> Remaining </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% stockResults.forEach(s => { %>
+                <tr>
+                    <td> <%= s.barcode %> </td>
+                    <td> <%= s.product_name %> </td>
+                    <td> <%= s.stock_in_quantity %> </td>
+                    <td> <%= s.stock_out_quantity %> </td>                    
+                    <td <% if (s.stock_in_quantity - s.stock_out_quantity == "0") { %> class="bg-danger" <% } %> >
+                        <%= s.stock_in_quantity - s.stock_out_quantity %>
+                    </td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<%- include('footer') %>

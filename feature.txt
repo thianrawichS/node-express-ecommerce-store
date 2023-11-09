@@ -1,0 +1,30 @@
+My Store Feature:
+	Phase 1: Login
+		- Authentication : JWT/Sign Token
+		- Use session
+		- DB : MySql
+	Phase 2: User Management
+		- Profile / Edit profile
+		- CRUD Feature (for User/Admin Management)
+	Phase 3: Product / Product Type Management
+		- CRUD Product Type
+		- CRUD Product [with image upload]
+	Phase 4: Show Product / Shopping Cart
+		- Show product at homepage
+		- Add to cart feature
+			- Show product in cart (that has been added)
+			- CRUD product in cart
+	Phase 5: Order confirm
+		- Confirm order in cart
+		- Show customer order
+		- Order detail
+	Phase 6: Payment / Shipping order / Income report
+		- Confirm Payment
+		- Cancel Order
+		- Shipping Order
+		- Income report (daily, monthly, per product?)
+	Phase 7: Search product / Filter product
+	Phase 8: Stock Management
+		- Stock-In
+		- Stock-Out
+		- Stock report

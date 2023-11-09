@@ -1,0 +1,37 @@
+ <%-include('header') %>
+
+<div class="container-lg">
+    <div class="mt-3 h4">
+        Your Orders
+    </div>
+    <div class="mt-3">
+        <table class="table">
+            <thead>
+                <tr class="align-middle">
+                    <th>Status</th>
+                    <th>Order Date</th>
+                    <th>Details</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            <%userOrder.forEach(order => { %>
+                <tr class="align-middle">
+                    <td><%= order.status %></td>
+                    <td><%= dayjs(order.created_date).format('YYYY-MM-DD HH:mm:ss') %></td>
+                    <td><a href="/order/detail/<%= order.order_id %>">Order Detail</a></td>
+                    <td>
+                    <% if (order.status == "Awaiting Payment" || order.status == "Payment Rejected / Awaiting Payment"){ %>
+                        <button type="button" class="btn btn-primary"> 
+                            <a href="/your-order/payment-confirm/<%= order.order_id %>" style="color: white;"> Proceed to payment </a>
+                        </button>
+                    <% } %>
+                    </td>
+                </tr>
+            <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+ <%-include('footer') %>

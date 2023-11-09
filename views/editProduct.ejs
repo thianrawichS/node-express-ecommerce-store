@@ -1,0 +1,51 @@
+<%- include('header') %>
+
+
+<div class="container-lg">
+    <div class="display-6 mt-3">
+        Edit Product
+    </div>
+    
+    <div class="mt-3">
+    
+        <form action="/edit/product/<%= product[0][0].product_id %>" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <input value="<%= product[0][0].product_name %>" type="text" name="product_name" placeholder="Product Name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <select name="product_group_id" id="product_group_id" class="form-select">
+                    <option value="" disabled> Select Product Type </option>
+                    <% productGroup[0].forEach((productGroups) => { %>
+                    <option value="<%= productGroups.product_group_id %>" <% if (productGroups.product_group_id == product[0][0].product_group_id) { %> selected <% } %>> 
+                        <%= productGroups.product_group_name %>
+                    </option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="mb-3">
+                <input value="<%= product[0][0].cost_price %>" type="number" class="form-control" name="cost_price" placeholder="Cost Price">
+            </div>
+            <div class="mb-3">
+                <input value="<%= product[0][0].selling_price %>" type="number" class="form-control" name="selling_price" placeholder="Selling Price">
+            </div>
+            <div>
+                <input value="<%= product[0][0].barcode %>" type="text" placeholder="Barcode" name="barcode" class="form-control">
+            </div>
+            <hr>
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Picture</label>
+                <input class="form-control mb-2" type="file" id="formFile" name="img">
+                <img src="/images/<%= product[0][0].img %>" style="width: 300px; height: 200px;">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <button type="button" class="btn btn-secondary"> <a href="/product" style="text-decoration: none; color: white;">Back</a> </button>
+            </div>
+        </form>
+    
+    </div>
+</div>
+
+
+
+<%- include('footer') %>

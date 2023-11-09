@@ -1,0 +1,72 @@
+<%-include('header') %>
+
+<div class="container-lg">
+    <div class="h3 mt-3">
+        Order ID : <%= order[0][0].order_id %>
+    </div>
+    <div class="mt-3">
+        <h4>Status: <%= order[0][0].status %></h4>
+
+        <% if (order[0][0].status !== 'Awaiting Payment') { %>
+        <div class="border rounded p-2 mt-3 bg-light-subtle text-center">
+            <a href="/order/detail/payment-proof/<%= order[0][0].order_id %>"> Proof of payment </a>
+        </div>
+        <% } %>
+
+        <% if (order[0][0].status == 'Shipped'){ %>
+        <div class="border rounded p-2 mt-3 bg-light-subtle">
+            <h5>Shipper : <%=order[0][0].shipping_name %></h5>
+            <h6>Tracking No. : <%=order[0][0].shipping_tracking %></h6>
+            <p>Shipping Time : <%=dayjs(order[0][0].send_date).format('YYYY-MM-DD HH:mm:ss') %></p>
+        </div>
+        <% } %>
+
+        <div class="mt-3">
+            <h4><%= order[0][0].name %></h4>
+            <p><%= order[0][0].address %></p>
+            <p><%= order[0][0].email %></p>
+            <p><%= order[0][0].tel %></p>
+            <p>Purchase Time: <%= dayjs(order[0][0].created_date).format('YYYY-MM-DD HH:mm:ss') %></p>
+            <% if (order[0][0]) %>
+        </div>
+    </div>
+</div>
+    
+
+<div class="mt-3">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Barcode</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% orderDetail[0].forEach(product => { %>
+            <tr class="align-middle">
+                <td style="width: 250px;"><img src="/images/<%= product.img %>" style="height: 150px; width: 200px"></td>
+                <td><%= product.barcode %></td>
+                <td><%= product.product_name %></td>
+                <td><%= numeral(product.selling_price).format('0,0') %></td>
+                <td><%= product.qty %></td>
+                <td><%= numeral(product.total_price).format('0,0') %></td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<div class="mt-3 d-flex flex-row-reverse">
+    <div class="ms-4 h4">
+        Total : <%= numeral(totalPrice).format('0,0') %>
+    </div>
+    <div class="h4">
+        Quantity : <%= totalQty %>
+    </div>
+</div>
+
+<%-include('footer') %>

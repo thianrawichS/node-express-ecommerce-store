@@ -1,0 +1,91 @@
+<%-include('header') %>
+
+<div class="container-lg">
+    <div class="display-5 mt-4 mb-2">
+        Cart
+    </div>
+    
+    <div >
+        <table class="table">
+            <thead>
+                <tr>
+                    <th colspan="2" scope="col" class="text-center"> Product </th>
+                    <th scope="col"> Price </th>
+                    <th scope="col"> Quantity </th>
+                    <th scope="col"> Total Price </th>
+                    <th scope="col"> Action </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (productInCart.length === 0) { %>
+                <tr>
+                    <td colspan="6" class="align-middle text-center display-4" style="height: 100vh;">
+                        <p class="display-4 text-secondary">
+                            No item in Cart
+                        </p>
+                    </td>
+                </tr>
+                <% } else { %>
+                <% productInCart.forEach(product => { %>
+                <tr class="align-middle" style="height: 250px;">
+                    <td class="text-end"><img src="/images/<%=product.image %>" style="width: 200px; height: 200px;"></td>
+                    <td><%= product.productName %></td>
+                    <td><%= numeral(product.sellingPrice).format(0,0) %></td>
+                    <td><%= product.qty %> 
+                        <span class="ms-2">
+                            <!-- edit amount modal trigger -->
+                            <button type="button" class="btn border rounded" data-bs-toggle="modal" data-bs-target="#editAmount<%= product.productId %>">
+                                <i class="fa-solid fa-plus-minus"></i>
+                              </button>
+                            <!-- edit amount modal -->
+                            <div class="modal fade" id="editAmount<%= product.productId %>" tabindex="-1" aria-labelledby="editAmountModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title f-5" id="editAmountModalLabel">Quantity</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                    
+                                        <form action="/cart/edit/<%= product.productId %>" method="post">
+                                            <div class="modal-body">
+                                                <div>
+                                                    <input name="qty" class="form-control" type="number" placeholder="Amount of items" value="<%= product.qty %>">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </form>
+                                
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
+                    </td>
+                    <td><%= numeral(product.productTotalPrice).format(0,0) %></td>
+                    <td><a href="/cart/delete/<%= product.productId %>"> Delete </a></td>
+                </tr>
+                <% })}%>
+            </tbody>
+        </table>
+        <div class="container">
+            <div class="d-flex flex-row-reverse">
+                <div>
+                    <p class="fs-4"><%= productInCart.length %> Product / <b><%= totalQty %> Piece(s)</b></p>
+                </div>
+            </div>
+            <div class="d-flex flex-row-reverse">
+                <div class="display-5">
+                    <p>Total Price: <strong class="text-primary"><%= numeral(totalPrice).format(0,0) %> Baht</strong></p>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-2">
+            <button type="button" class="btn btn-lg btn-primary"> <a href="/cart/confirm-order" class="text-light"> Confirm Order(s) </a></button>
+        </div>
+    </div>
+</div>
+
+
+<%-include('footer') %>
