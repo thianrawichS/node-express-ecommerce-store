@@ -36,4 +36,4 @@
    docker-compose up
 
 4. **Access the App:**
-   Open your web browser and navigate to http://localhost:3000 (as specified in the `docker-compose.yml`)
+   - Open your web browser and navigate to http://localhost:3000 (as specified in the `docker-compose.yml`)
