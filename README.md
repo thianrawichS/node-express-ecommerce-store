@@ -15,7 +15,7 @@
    cd <your-project-folder>
 
 2. **Environment Variables:**
-   - Create a `.env` file in the project directory with the following content:
+   - Create a `.env` file in the project directory with the following content: ```(Change USER, PASSWORD, and ROOT_PASSWORD)```
    ```env
    # DB_INFO
    DB_HOST="mysql"
