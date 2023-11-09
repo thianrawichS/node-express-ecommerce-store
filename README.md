@@ -14,7 +14,7 @@
    git clone https://github.com/thianrawichS/node-express-ecommerce-store.git
 
 2. **Environment Variables:**
-   - Create a `.env` file in the root directory with the following content:
+   - Create a `.env` file in the project directory with the following content:
    ```env
    # DB_INFO
    DB_HOST="mysql"
@@ -28,3 +28,7 @@
    
    # SESSION SECRET
    SESSION_SECRET="your-session-secret"
+
+3. **Run the App:**
+   ```bash
+   docker-compose up
