@@ -329,7 +329,6 @@ router.get('/cart/confirm-order', isLogin, (req, res) => {
     const insertOrderSql = "INSERT INTO tb_order SET ?, status = ?, created_date = ?, user_id = ?";
     const insertOrderDetailSql = "INSERT INTO tb_order_detail SET order_id = ?, product_id = ?, qty = ?, total_price = ?";
     const productPriceSql = "SELECT selling_price FROM tb_product WHERE product_id = ?";
-    const promisePool = require("./dbConnect2");
     const userId = req.params.id;
     let cart = req.session.cart || [];
     let orderStatus = "Awaiting Payment";
@@ -490,7 +489,6 @@ router.get('/order', isLogin, isAdmin, async (req, res) => {
       const updateOrderSql = "UPDATE tb_order SET status = ?, payment_id = NULL WHERE order_id = ?";
       const selectImgSql = "SELECT transfer_receipt_img FROM tb_payment WHERE payment_id = ?";
       const delPaymentSql = "DELETE FROM tb_payment WHERE transfer_receipt_img = ?"
-      const promisePool = require('./dbConnect2');
       let paymentImg;
       let receiptImgPath;
 
@@ -1299,7 +1297,6 @@ router.get('/stock-out', isLogin, isAdmin, async (req, res) => {
   })
   // Stock-out delete
   router.get('/stock-out/delete/:stock_out_id/:product_id/:qty', isLogin, isAdmin, async (req, res) => {
-    const promisePool = require('./dbConnect2');
     const delSql = "DELETE FROM tb_stock_out WHERE stock_out_id = ?";
     const updateProductStock = "UPDATE tb_product SET product_stock = product_stock + ? WHERE product_id = ?"
     const delData = [req.params.stock_out_id];
